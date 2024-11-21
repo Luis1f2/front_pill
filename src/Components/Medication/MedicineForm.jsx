@@ -23,17 +23,27 @@ function MedicineForm({ isEditing, onScanRfid }) {
   const handleScanRfid = async () => {
     try {
       const response = await axios.get("http://localhost:8083/medicines/pending-rfids");
-      const id_medicamento_rfid = response.data.id_medicamento_rfid; // Asegúrate de que este sea el formato de respuesta correcto
-      console.log("datos del tfif", response.data)
-      console.log("datos del tfiffsdsadsa", response.data.id_medicamento_rfid.id_medicamento_rfid);
-      setForm({ ...form, id_medicamento_rfid });
-      alert(`RFID escaneado: ${id_medicamento_rfid}`);
+      
+      // Verificar la estructura de la respuesta recibida
+      console.log("Respuesta recibida del backend (sin parsear):", response.data);
+  
+      // Parsear la respuesta ya que es una cadena de texto JSON
+      const parsedData = JSON.parse(response.data);
+      
+      // Extraer el valor de 'id_medicamento_rfid'
+      if (parsedData && parsedData.id_medicamento_rfid) {
+        const id_medicamento_rfid = parsedData.id_medicamento_rfid;
+        setForm({ ...form, id_medicamento_rfid });
+        alert(`RFID escaneado: ${id_medicamento_rfid}`);
+      } else {
+        alert("No se pudo obtener el RFID. Asegúrate de que haya un RFID pendiente.");
+      }
     } catch (error) {
       console.error("Error al escanear el RFID:", error);
       alert("Hubo un error al escanear el RFID. Revisa la consola para más detalles.");
     }
   };
-
+  
   const handleSave = async () => {
     try {
       const response = await axios.post("http://localhost:8083/medicines/add", form);
