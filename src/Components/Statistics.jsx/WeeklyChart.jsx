@@ -1,26 +1,25 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from 'chart.js';
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function WeeklyChart() {
   const data = {
@@ -39,6 +38,7 @@ function WeeklyChart() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, 
     plugins: {
       legend: {
         display: false,
@@ -47,9 +47,14 @@ function WeeklyChart() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div
+      className="bg-white rounded-lg shadow-lg p-6"
+      style={{ width: '400px', height: '300px' }} 
+    >
       <h3 className="text-xl font-medium text-teal-600 mb-4">Cumplimiento Semanal</h3>
-      <Line data={data} options={options} />
+      <div style={{ height: '100%', width: '100%' }}>
+        <Line data={data} options={options} />
+      </div>
     </div>
   );
 }

@@ -1,30 +1,43 @@
 import React from 'react';
 
-function LatestTransactions() {
+function MedicationSchedule() {
+  const schedule = [
+    { time: '08:00 AM', medication: 'Paracetamol', dose: '2 píldoras / 5mg', status: 'Tomado' },
+    { time: '12:00 PM', medication: 'Ibuprofeno', dose: '1 píldora / 10mg', status: 'Pendiente' },
+    { time: '06:00 PM', medication: 'Amoxicilina', dose: '1 cápsula / 500mg', status: 'Tomado' },
+    { time: '09:00 PM', medication: 'Vitamina C', dose: '1 píldora / 100mg', status: 'Pendiente' },
+  ];
+
+  const statusColors = {
+    Tomado: 'text-green-500',
+    Pendiente: 'text-yellow-500',
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h3 className="text-xl font-semibold text-gray-700">Latest Transactions</h3>
+      <h3 className="text-xl font-semibold text-gray-700">Horario de Medicación</h3>
       <table className="w-full mt-4">
         <thead>
           <tr>
-            <th className="text-left text-gray-600">To/From</th>
-            <th className="text-left text-gray-600">Date</th>
-            <th className="text-left text-gray-600">Amount</th>
-            <th className="text-left text-gray-600">Status</th>
+            <th className="text-left text-gray-600">Hora</th>
+            <th className="text-left text-gray-600">Medicamento</th>
+            <th className="text-left text-gray-600">Dosis</th>
+            <th className="text-left text-gray-600">Estado</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="border-t">
-            <td className="py-2">Elevate Agency</td>
-            <td>2 Oct 2023</td>
-            <td className="text-green-500">+1,500.00</td>
-            <td className="text-green-500">Success</td>
-          </tr>
-       
+          {schedule.map((item, index) => (
+            <tr key={index} className="border-t">
+              <td className="py-2">{item.time}</td>
+              <td>{item.medication}</td>
+              <td>{item.dose}</td>
+              <td className={`${statusColors[item.status]} font-semibold`}>{item.status}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default LatestTransactions;
+export default MedicationSchedule;

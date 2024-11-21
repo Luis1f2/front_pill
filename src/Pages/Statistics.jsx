@@ -79,14 +79,14 @@ function Statistics() {
         </button>
       </div>
 
-      <div className="mb-6">{renderActiveChart()}</div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="col-span-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div>{renderActiveChart()}</div>
+        <div>
           <HealthSummary data={data} />
         </div>
       </div>
 
+   
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <IndicatorCard
           title="Cumplimiento de Medicación"

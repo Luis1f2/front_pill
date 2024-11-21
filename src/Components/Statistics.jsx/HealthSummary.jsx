@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import WeeklyChart from "./WeeklyChart";
 
 function HealthSummary({ data }) {
   const printRef = useRef();
@@ -21,7 +22,8 @@ function HealthSummary({ data }) {
   };
 
   return (
-    <div ref={printRef} className="bg-white rounded-lg shadow-lg p-6">
+    <div>
+     <div ref={printRef} className="bg-white rounded-lg shadow-lg p-6">
       <h3 className="text-xl font-medium text-teal-600 mb-4">
         Estado de Salud
       </h3>
@@ -41,13 +43,14 @@ function HealthSummary({ data }) {
           Monitorizar el cumplimiento en las mañanas.
         </span>
       </p>
-      <button
-        onClick={generatePDF}
-        className="mt-4 bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 transition duration-300"
-      >
-        Descargar PDF
-      </button>
     </div>
+    <div>
+    
+    </div>
+   
+    </div>
+   
+   
   );
 }
 

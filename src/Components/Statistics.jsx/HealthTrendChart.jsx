@@ -1,5 +1,16 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const HealthTrendChart = () => {
   const data = {
@@ -8,13 +19,35 @@ const HealthTrendChart = () => {
       {
         label: 'Nivel de Salud',
         data: [70, 75, 80, 78, 85, 90, 95],
-        borderColor: '#00747C',
-        fill: false,
+        backgroundColor: '#00747C',
       },
     ],
   };
 
-  return <Line data={data} />;
+  const options = {
+    maintainAspectRatio: false, 
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
+    scales: {
+      x: {
+        ticks: { font: { size: 12 } },
+      },
+      y: {
+        ticks: { font: { size: 12 } },
+      },
+    },
+  };
+
+  return (
+    <div style={{ width: '500px', height: '200px' }}> 
+      <Bar data={data} options={options} />
+    </div>
+  );
 };
 
 export default HealthTrendChart;
