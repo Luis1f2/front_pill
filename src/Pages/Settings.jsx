@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UserSettings() {
   const login_nombre = localStorage.getItem("login_nombre");
@@ -53,9 +54,21 @@ function UserSettings() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleBackTohome = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-8">
-      <h2 className="text-2xl font-semibold text-teal-600 mb-6">Configuración del Usuario</h2>
+       <div className="flex items-center justify-between w-full max-w-4xl mb-6">
+      <h2 className="text-2xl font-semibold text-teal-600">Configuración</h2>
+      <div className="flex space-x-4">
+        <button className="px-4 py-2 rounded-lg bg-teal-600 text-white"
+         onClick={handleBackTohome}>Regresar</button>
+      </div>
+    </div>
 
       <form
         onSubmit={handleSubmit}

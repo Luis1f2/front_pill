@@ -4,6 +4,7 @@ import MedicationPieChart from "../Components/Statistics.jsx/MedicationPieChart"
 import HealthTrendChart from "../Components/Statistics.jsx/HealthTrendChart.jsx";
 import HealthSummary from "../Components/Statistics.jsx/HealthSummary";
 import IndicatorCard from "../Components/Statistics.jsx/IndicatorCard";
+import { useNavigate } from "react-router-dom";
 
 function Statistics() {
   const [activeTab, setActiveTab] = useState("weekly");
@@ -27,11 +28,23 @@ function Statistics() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleBackTohome = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <h2 className="text-2xl font-semibold text-teal-600 mb-6">
-        Estadísticas de Medicación
-      </h2>
+      <div className="relative w-full mb-6">
+        <h2 className="text-2xl font-semibold text-teal-600">Estadísticas </h2>
+        <button
+          className="absolute top-0 right-0 px-4 py-2 rounded-lg bg-teal-600 text-white"
+          onClick={handleBackTohome}
+        >
+          Regresar
+        </button>
+      </div>
 
       <div className="flex justify-center space-x-4 mb-6 border-b pb-2">
         <button

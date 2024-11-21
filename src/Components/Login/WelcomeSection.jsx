@@ -13,7 +13,7 @@ function WelcomeSection() {
         </h1>
       </div>
 
-      {/* Sección derecha con la imagen de bienvenida */}
+ 
       <div className="flex flex-col items-center justify-center p-10">
         <img
           src={imageone}

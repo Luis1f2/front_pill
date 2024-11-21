@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate  } from "react-router-dom";
-import axios from "axios";  // La instancia configurada
+import axios from "axios";  
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ function LoginForm() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();  // Usamos useNavigate
+  const navigate = useNavigate(); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -29,20 +29,20 @@ function LoginForm() {
 
     try {
       const response = await axios.post("http://localhost:8083/auth/login", formData);
-      // Manejar la respuesta de la API
+     
       console.log("Respuesta del servidor:", response.data);  
       console.log("ideee",response.data.user.id_usuario)
-      localStorage.setItem("login_id", response.data.user.id_usuario);  // Guardar el token en localStorage
-      localStorage.setItem("login_nombre", response.data.user.nombre);  // Guardar el token en localStorage
-      localStorage.setItem("login_email", response.data.user.direccion_Email);  // Guardar el token en localStorage
+      localStorage.setItem("login_id", response.data.user.id_usuario);
+      localStorage.setItem("login_nombre", response.data.user.nombre);
+      localStorage.setItem("login_email", response.data.user.direccion_Email); 
 
-      localStorage.setItem("id_user", response.data.id);  // Guardar el token en localStorage
-      localStorage.setItem("token", response.data);  // Guardar el token en localStorage
+      localStorage.setItem("id_user", response.data.id);  
+      localStorage.setItem("token", response.data);  
       
-      navigate("/home");  // Redirige a la página del dashboard u otra ruta
-      // Redirige al usuario o realiza una acción adicional
+      navigate("/home");  
+     
     } catch (error) {
-      // Manejar errores
+
       console.error("Error al enviar los datos:", error);
       setErrorMessage(
         error.response?.data?.message || "Ocurrió un error al iniciar sesión"
@@ -52,7 +52,7 @@ function LoginForm() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-[550px] h-[600px] bg-gray-100 rounded-3xl flex flex-col justify-center items-center">
+      <div className="w-[550px] h-[600px] bg-[#FDFDFD] rounded-3xl flex flex-col justify-center items-center shadow-lg">
         <h2 className="text-3xl font-semibold text-teal-600 mb-6 text-center">
           Inicia sesión
         </h2>

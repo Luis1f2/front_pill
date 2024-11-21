@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function InfoCards() {
-  const [userInfo, setUserInfo] = useState(null); // Estado para almacenar datos del paciente
+  const [userInfo, setUserInfo] = useState(null); 
   const idUsuario = localStorage.getItem("login_id");
   console.log("idUsuario en infoCards",idUsuario)
 
 
   useEffect(() => {
-    // Función para obtener los datos del paciente
+
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:8083/patients/get/user/${idUsuario}`);
         console.log("response",response)
         localStorage.setItem("id_paciente_home", response.data.id_paciente);
-        setUserInfo(response.data); // Actualizar estado con los datos del paciente
+        setUserInfo(response.data); 
       } catch (error) {
         console.error("Error al obtener los datos del paciente:", error);
       }
@@ -29,12 +29,10 @@ function InfoCards() {
 
   const info = [
     { title: "Paciente", illness: userInfo?.condicion || "No especificada", image: "https://via.placeholder.com/100" },
-    { title: "Spendings" },
-    { title: "Savings" },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6w-24" >
       {info.map((item, index) => (
         <div
           key={index}

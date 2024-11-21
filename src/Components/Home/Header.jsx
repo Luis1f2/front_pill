@@ -7,7 +7,7 @@ function Header() {
   const login_nombre = localStorage.getItem("login_nombre");
 
   const [open, setOpen] = useState(false);
-  const [notifications] = useState([
+  const [notifications, setNotifications] = useState([
     { id: 1, text: 'Medicación cumplida: Paracetamol - 8 AM', type: 'info' },
     { id: 2, text: 'Alerta: Dosis de las 10 AM no tomada', type: 'warning' },
     { id: 3, text: 'Medicación cumplida: Ibuprofeno - 12 PM', type: 'info' },
@@ -15,36 +15,39 @@ function Header() {
     { id: 5, text: 'Medicación cumplida: Vitamina C - 6 PM', type: 'info' },
   ]);
 
-  const handleOpen = () => {
-    setOpen(true);
-    readNotifications();
-  };
-
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const readNotifications = () => {
+  const playNotificationAudio = (text) => {
     if ('speechSynthesis' in window) {
       const synth = window.speechSynthesis;
-      notifications.forEach((notification) => {
-        const utterance = new SpeechSynthesisUtterance(notification.text);
-        utterance.lang = 'es-ES'; // Configuración para español
-        utterance.rate = 1; // Velocidad de lectura (1 es normal)
-        synth.speak(utterance);
-      });
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'es-ES';
+      utterance.rate = 1;
+      synth.speak(utterance);
     } else {
       console.error('SpeechSynthesis no es compatible con este navegador.');
     }
   };
 
+  const handleNotificationClick = (notification) => {
+    playNotificationAudio(notification.text);
+  };
+
+  const addNewNotification = () => {
+    const newNotification = {
+      id: notifications.length + 1,
+      text: `Nueva notificación: Evento ${notifications.length + 1}`,
+      type: notifications.length % 2 === 0 ? 'info' : 'warning',
+    };
+    setNotifications((prev) => [...prev, newNotification]);
+    playNotificationAudio(newNotification.text);
+  };
+
   return (
-    <div className="flex justify-between items-center p-4 bg-gray-100">
+    <div className="flex justify-between items-center p-4 bg-[#FDFDFD] shadow-xl mb-12 rounded-3xl">
       <h1 className="text-2xl font-semibold text-gray-700">Home</h1>
       <div className="flex items-center space-x-4">
-        <input
-          type="text"
-          placeholder="Search here"
-          className="p-2 border rounded-md focus:outline-none"
-        />
         <div className="relative">
           <NotificationsIcon
             onClick={handleOpen}
@@ -64,7 +67,6 @@ function Header() {
         </div>
       </div>
 
-      {/* Modal for Notifications */}
       <Modal open={open} onClose={handleClose}>
         <Box className="p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto mt-20">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
@@ -74,11 +76,12 @@ function Header() {
             {notifications.map((notification) => (
               <li
                 key={notification.id}
-                className={`p-2 rounded-md ${
+                className={`p-2 rounded-md cursor-pointer ${
                   notification.type === 'warning'
                     ? 'bg-red-100 text-red-700'
                     : 'bg-green-100 text-green-700'
                 }`}
+                onClick={() => handleNotificationClick(notification)}
               >
                 {notification.text}
               </li>
@@ -92,6 +95,9 @@ function Header() {
           </button>
         </Box>
       </Modal>
+
+    
+     
     </div>
   );
 }

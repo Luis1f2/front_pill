@@ -26,7 +26,7 @@ function ScheduleMedication() {
       ...medication,
       [name]: value,
     });
-    setErrors({ ...errors, [name]: '' }); // Limpiar el error del campo al ingresar datos
+    setErrors({ ...errors, [name]: '' }); 
   };
 
   const validate = () => {
@@ -49,8 +49,8 @@ function ScheduleMedication() {
     if (!validate()) return;
 
     try {
-      // Simulación de envío de datos al backend
-      await axios.post('/api/medication', medication); // Cambia la URL a la de tu backend
+  
+      await axios.post('/api/medication', medication);
       alert('Medicación guardada exitosamente');
     } catch (error) {
       console.error('Error al guardar la medicación:', error);
@@ -63,7 +63,7 @@ function ScheduleMedication() {
       <h2 className="text-2xl font-semibold text-teal-600 mb-6">Programar Medicación</h2>
       <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg w-full">
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Sección: Detalles del Medicamento */}
+        
           <div className="mb-6">
             <h3 className="text-lg font-medium text-gray-600 mb-4">Detalles del Medicamento</h3>
             <TextField
@@ -107,7 +107,6 @@ function ScheduleMedication() {
             </TextField>
           </div>
 
-          {/* Sección: Programación de la Dosis */}
           <div className="mb-6">
             <h3 className="text-lg font-medium text-gray-600 mb-4">Programación de la Dosis</h3>
             <TextField
